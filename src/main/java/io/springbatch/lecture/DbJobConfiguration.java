@@ -12,27 +12,27 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@RequiredArgsConstructor
 @Configuration
-public class HelloJobConfiguration {
+@RequiredArgsConstructor
+public class DbJobConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
     @Bean
-    public Job helloJob() {
-        return jobBuilderFactory.get("helloJob")
-                .start(helloStep())
-                .next(helloStep2())
+    public Job job(){
+        return jobBuilderFactory.get("job")
+                .start(step1())
+                .next(step2())
                 .build();
     }
 
-    private Step helloStep() {
-        return stepBuilderFactory.get("helloStep1")
+    private Step step1() {
+        return stepBuilderFactory.get("step1")
                 .tasklet(new Tasklet() {
                     @Override
                     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
                         System.out.println("==============================");
-                        System.out.println(">> Hello Sptring Batch");
+                        System.out.println(">> step1 Batch");
                         System.out.println("==============================");
                         return null;
                     }
@@ -40,17 +40,18 @@ public class HelloJobConfiguration {
                 .build();
     }
 
-    private Step helloStep2() {
-                return stepBuilderFactory.get("helloStep2")
+    private Step step2() {
+        return stepBuilderFactory.get("step1")
                 .tasklet(new Tasklet() {
                     @Override
                     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
                         System.out.println("==============================");
-                        System.out.println(">> step2 was executed");
+                        System.out.println(">> step2 Batch");
                         System.out.println("==============================");
                         return null;
                     }
                 })
                 .build();
     }
+
 }
