@@ -14,12 +14,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class DbJobConfiguration {
+public class JobConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
     @Bean
-    public Job job(){
+    public Job job() {
         return jobBuilderFactory.get("job")
                 .start(step1())
                 .next(step2())
@@ -31,24 +31,24 @@ public class DbJobConfiguration {
                 .tasklet(new Tasklet() {
                     @Override
                     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("==============================");
-                        System.out.println(">> step1 Batch");
-                        System.out.println("==============================");
-                        return null;
+                        System.out.println("setp1 실행");
+                        System.out.println("setp1 실행");
+                        System.out.println("setp1 실행");
+                        return RepeatStatus.FINISHED /* 1번 실행하고 종료*/;
                     }
                 })
                 .build();
     }
 
     private Step step2() {
-        return stepBuilderFactory.get("step1")
+        return stepBuilderFactory.get("step2")
                 .tasklet(new Tasklet() {
                     @Override
                     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("==============================");
-                        System.out.println(">> step2 Batch");
-                        System.out.println("==============================");
-                        return null;
+                        System.out.println("setp2 실행");
+                        System.out.println("setp2 실행");
+                        System.out.println("setp2 실행");
+                        return RepeatStatus.FINISHED /* 1번 실행하고 종료*/;
                     }
                 })
                 .build();
