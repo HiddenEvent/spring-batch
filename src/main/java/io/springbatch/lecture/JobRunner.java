@@ -9,6 +9,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Component
 public class JobRunner implements ApplicationRunner {/* 수동으로 Job을 실행 시키기 위해 ApplicationRunner 상속 받음*/
     @Autowired
@@ -21,7 +23,10 @@ public class JobRunner implements ApplicationRunner {/* 수동으로 Job을 실�
     @Override
     public void run(ApplicationArguments args) throws Exception {
         JobParameters jobParameters = new JobParametersBuilder()
-                .addString("name", "user2")
+                .addString("name", "user6")
+                .addLong("seq", 5L)
+                .addDate("date", new Date())
+                .addDouble("age", 20.5)
                 .toJobParameters(); /* Job 파라미터 객체 생성*/
         jobLauncher.run(job, jobParameters);
     }
