@@ -55,15 +55,7 @@ public class JobParametersConfiguration {
 
     private Step step2() {
         return stepBuilderFactory.get("step2")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("setp2 실행");
-                        System.out.println("setp2 실행");
-                        System.out.println("setp2 실행");
-                        return RepeatStatus.FINISHED /* 1번 실행하고 종료*/;
-                    }
-                })
+                .tasklet(new CustomTasklet())
                 .build();
     }
 
